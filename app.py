@@ -9,7 +9,7 @@ app.config.update(
 
 @app.route('/sms', methods=['GET','POST'])
 def sms_reply():
-    resp = twiml.MessagingResponse()
+    resp = MessagingResponse()
     resp.message("Hello world!")
     return str(resp)
 

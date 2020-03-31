@@ -1,0 +1,6 @@
+import os
+
+APP_SECRET_KEY = os.environ['APP_SECRET_KEY']
+PORT_AUTHORITY_API_KEY = os.environ['PORT_AUTHORITY_API_KEY']
+TWILIO_API_SID = os.environ['TWILIO_API_SID']
+TWILIO_API_TOKEN = os.environ['TWILIO_API_TOKEN']

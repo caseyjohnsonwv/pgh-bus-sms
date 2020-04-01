@@ -11,35 +11,12 @@ class PATApiHandler:
     def __init__(self, apiKey):
         self.baseQuery = "http://realtime.portauthority.org/bustime/api/v3/"
         self.queryOptions = "?key={}&tmres=s&localestring=en_US&format=json&rtpidatafeed=Port%20Authority%20Bus".format(apiKey)
-        self.vehicleQuery = self.baseQuery + "getvehicles" + self.queryOptions
         self.predictionsQuery = self.baseQuery + "getpredictions" + self.queryOptions
         self.stopsQuery = self.baseQuery + "getstops" + self.queryOptions
 
     def queryApi(self, queryString):
         response = requests.get(queryString)
         return json.loads(response.text)['bustime-response']
-
-    """
-    def getVehiclesOnRoute(self, route):
-        queryString = self.vehicleQuery + "&rt={}".format(route)
-        resp = self.queryApi(queryString)
-        if 'vehicle' not in resp:
-            raise RouteNotFoundError("Route '{}' returned no results!".format(route))
-        return resp
-
-    def getPredictionsForVehicles(self, vehicleIds):
-        # vehicleIds is a list of vid values - convert to comma-delimited list
-        idString=""
-        for vid in vehicleIds:
-            idString += vid + ","
-        idString = idString[:-1]
-        # query api and whatnot
-        queryString = self.predictionsQuery + "&vid={}".format(idString)
-        resp = self.queryApi(queryString)
-        if 'prd' not in resp:
-            raise PredictionsNotFoundError("No predictions for vehicles '{}'!".format(idString))
-        return resp
-    """
 
     def getETA(self, lat, lon, route, direction):
         """

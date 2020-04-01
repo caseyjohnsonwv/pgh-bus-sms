@@ -1,6 +1,6 @@
 import env
-import buses
-import geocoding
+from buses import *
+from geocoding import *
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 
@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.config.update(
     SECRET_KEY = env.APP_SECRET_KEY,
 )
-PAT = buses.PATApiHandler(env.PORT_AUTHORITY_API_KEY)
-GH = geocoding.GeocodingHandler(env.LOCATION_IQ_API_KEY)
+PAT = PATApiHandler(env.PORT_AUTHORITY_API_KEY)
+GH = GeocodingHandler(env.LOCATION_IQ_API_KEY)
 
 
 def parse_message(msg):

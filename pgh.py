@@ -65,18 +65,18 @@ class PATApiHandler:
         closest = list(stopTable.keys())[0]
         minDist = float("inf")
         for stpid,point in stopTable.items():
-            dist = (lat**2-point[0]**2)+(lon**2-point[1]**2)
+            dist = ((lat-point[0])**2)+((lon-point[1])**2)
             # ^ no need for sqrt of distance - order of sorted values wouldn't change
             if dist < minDist:
                 minDist = dist
                 closest = stpid
 
         # get all predictions for stop
-        queryString = self.predictionsQuery + "&stpid={}".format(stpid)
+        queryString = self.predictionsQuery + "&stpid={}".format(closest)
         try:
             predJson = self.queryApi(queryString)['prd']
         except KeyError:
-            raise PredictionsNotFoundError("Predictions for route '{}' couldn't be found!".format(stpid))
+            raise PredictionsNotFoundError("Predictions for stop '{}' couldn't be found!".format(closest))
 
         # get first prediction time and stop name for correct route and direction
         eta = None
@@ -103,5 +103,5 @@ import env
 PAT = PATApiHandler(env.PORT_AUTHORITY_API_KEY)
 
 # test message generation
-nextBusMsg = PAT.getETA(40.441796934296,-80.002513999999,"28X","OUTBOUND")
+nextBusMsg = PAT.getETA(40.438829, -79.9901,"28X","OUTBOUND")
 print(nextBusMsg)

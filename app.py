@@ -22,7 +22,7 @@ def parse_message(msg):
 
 
 @app.route('/sms', methods=['POST'])
-def sms_reply(message):
+def sms_reply():
     message = request.form['Body']
     location, route, direction = parse_message(message)
 

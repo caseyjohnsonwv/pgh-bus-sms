@@ -1,4 +1,5 @@
 import os
 
 APP_SECRET_KEY = os.environ['APP_SECRET_KEY']
+LOCATION_IQ_API_KEY = os.environ['LOCATION_IQ_API_KEY']
 PORT_AUTHORITY_API_KEY = os.environ['PORT_AUTHORITY_API_KEY']

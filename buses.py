@@ -70,15 +70,3 @@ class PATApiHandler:
         eta = datetime.strftime(datetime.strptime(eta, "%Y%m%d %H:%M:%S"), "%I:%M")
         msg = "{} {}: Arriving {} at {}.".format(direction, route, eta, stpnm)
         return msg
-
-
-
-"""TESTERS"""
-
-# instantiate API handler
-import env
-PAT = PATApiHandler(env.PORT_AUTHORITY_API_KEY)
-
-# test message generation
-nextBusMsg = PAT.getETA(40.438829, -79.9901,"28X","OUTBOUND")
-print(nextBusMsg)

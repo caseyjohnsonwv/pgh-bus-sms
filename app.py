@@ -28,7 +28,7 @@ def sms_reply():
 
     try:
         coords = GH.getCoordinates(location)
-        responseString = PAT.getETA(coords[0], coords[1], route, direction)
+        responseString = PAT.getETA(coords[0], coords[1], route, direction.upper())
     except RouteNotFoundError as ex:
         responseString = str(ex)
     except PredictionsNotFoundError as ex:

@@ -59,12 +59,12 @@ class PATApiHandler:
         eta = None
         stpnm = None
         for pred in predJson:
-            if pred['rt'] == route and pred['rtdir'] == direction:
+            if pred['rt'].upper().strip() == route.upper().strip() and pred['rtdir'].upper() == direction.upper():
                 eta = pred['prdtm']
                 stpnm = pred['stpnm']
                 break
         if not (eta and stpnm):
-            raise PredictionsNotFoundError("Prediction for route '{} {}' couldn't be found!".format(direction, route))
+            raise PredictionsNotFoundError("Predictions for route '{} {}' couldn't be found!".format(direction, route))
 
         # convert to human-readable format for sms response
         eta = datetime.strftime(datetime.strptime(eta, "%Y%m%d %H:%M:%S"), "%I:%M")

@@ -26,11 +26,18 @@ def sms_reply(message):
     message = request.form['Body']
     location, route, direction = parse_message(message)
 
-    coords = GH.getCoordinates(location)
-    etaString = PAT.getETA(coords[0], coords[1], route, direction)
+    try:
+        coords = GH.getCoordinates(location)
+        responseString = PAT.getETA(coords[0], coords[1], route, direction)
+    except RouteNotFoundError as ex:
+        responseString = str(ex)
+    except PredictionsNotFoundError as ex:
+        responseString = str(ex)
+    except Exception:
+        responseString = "Whoops- something went wrong! Try again?"
 
     resp = MessagingResponse()
-    resp.message(etaString)
+    resp.message(responseString)
     return str(resp)
 
 
